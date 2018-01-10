@@ -1,0 +1,49 @@
+merge_ips is PostgreSQL extension that implements merging of IP addresses in a
+way that does not include gaps in the resulting subnets. It aims to be purely
+database implementation for users who do not want to use external application,
+such as the Perl implementation Net::CIDR::Lite
+(http://search.cpan.org/dist/Net-CIDR-Lite/Lite.pm).
+
+
+Installation
+------------
+
+1. make PG_CONFIG=<path to pg_config of your PG installation> install
+
+2. Connect to your database
+
+3. CREATE EXTENSION merge_ips;
+
+
+Use
+---
+
+The input values are expected in a form of inet[] array. The merge_ips()
+function returns a set of subnets that contain the input addresses.
+
+SELECT merge_ips.merge_ips(ARRAY[
+       '10.0.52.0/30',
+       '10.0.52.16/30',
+       '10.0.52.4/30',
+       '10.0.52.20/30']::inet[]);
+
+   merge_ips   
+---------------
+ 10.0.52.0/29
+ 10.0.52.16/29
+(2 rows)
+
+
+Alternatively you can use merge_ips_array() function. The only difference is
+that it returns an array instead of set:
+
+SELECT merge_ips.merge_ips_array(ARRAY[
+       '10.0.52.0/30',
+       '10.0.52.16/30',
+       '10.0.52.4/30',
+       '10.0.52.20/30']::inet[]);
+
+       merge_ips_array        
+------------------------------
+ {10.0.52.0/29,10.0.52.16/29}
+(1 row)

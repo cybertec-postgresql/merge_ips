@@ -1,0 +1,5 @@
+# merge_ips extension
+comment = 'Functions to merge IP addresses, ignoring gaps.'
+default_version = '1.0'
+schema = 'merge_ips'
+relocatable = false
