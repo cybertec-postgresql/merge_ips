@@ -47,3 +47,10 @@ SELECT merge_ips.merge_ips_array(ARRAY[
 ------------------------------
  {10.0.52.0/29,10.0.52.16/29}
 (1 row)
+
+Authors
+-------
+
+The extension was developed by Cybertec Schönig & Schönig GmbH
+(https://www.cybertec-postgresql.com). Please use this page to report issues:
+https://github.com/cybertec-postgresql/merge_ips/issues
